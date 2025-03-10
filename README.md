@@ -27,3 +27,9 @@ El archivo `LoadData.sql` crea la base de datos `inegi_mario` así como todas la
 
 
 # Problemas afrontados
+
+El primer problema fue la normalización de la información ya que es un volumen enorme, tratar mas de 130 mil registros no es poca cosa. Para lograrlo había que saber qué tan largas eran las cadenas de texto en cada columna, si tenían espacios extra o si contaban con caractéres especiales a lo cual muchas veces fue un ejercicio de ensayo y error ya que todo lo que pudo salir mal con los valores ocurrió. Esto llevó a varios cambios en la estructura de las tablas durante el proceso de pruebas.
+
+La configuración del motor de base de datos también fue una dificultad ya que se tiene que configurar el motor servidor así como el cliente para poder insertar registros desde archivos locales. Al logearse a la instancia de debe hacer con el argumento `--local-infile` así como configurar antes de nada la admisión de este comando con `SET GLOBAL local_infile=1;` para posteriormente poder usar la sentencia `LOCAL DATA INFILE`.
+
+El proceso de generarcion de archivos csv tambien enfrentó dificuladoes ya que en la tabla `direcciones` se incluyen valores con ´,´ así que se tuvo que exportar la informacion con otro separador asi como indicar el mismo en la sentencia para importarla en la instancia. Lo mismo con la tabla `establecimientos` ya que ademas de eso contaba con valores que incluian `@` por lo que no era una opcion como se propuso durante as pruebas.
